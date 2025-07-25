@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Digital Product Marketplace</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f7f9fb url('data:image/svg+xml;utf8,<svg width="100%25" height="100%25" xmlns="http://www.w3.org/2000/svg"><rect fill="%23e3eafc" width="100%25" height="100%25"/><ellipse cx="70%25" cy="20%25" rx="200" ry="80" fill="%23c7d7f5" fill-opacity="0.3"/><ellipse cx="30%25" cy="80%25" rx="180" ry="60" fill="%23b3c7e6" fill-opacity="0.2"/></svg>') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .hero {
+      text-align: center;
+      padding: 5rem 2rem 3rem 2rem;
+      background: rgba(255,255,255,0.85);
+      border-radius: 18px;
+      margin: 3rem auto 2rem auto;
+      max-width: 700px;
+      box-shadow: 0 8px 32px rgba(44,108,223,0.08);
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 2.7rem;
+      color: #2d6cdf;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+    }
+    .hero p {
+      font-size: 1.3rem;
+      color: #3a4a6b;
+      margin-bottom: 2.2rem;
+    }
+    .cta-btn {
+      background: #2d6cdf;
+      color: #fff;
+      border: none;
+      border-radius: 7px;
+      padding: 1rem 2.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(44,108,223,0.08);
+      transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .cta-btn:hover {
+      background: #1b4fa0;
+      transform: scale(1.04);
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 2.5rem 0.7rem 2rem 0.7rem; }
+      .hero h1 { font-size: 2rem; }
+    }
+    .navbar-link {
+      margin: 0 1rem;
+      color: #2d6cdf;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .navbar-link:hover {
+      color: #1b4fa0;
+    }
+    .navbar-user {
+      margin: 0 1rem;
+      color: #2d6cdf;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav style="display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2rem;background:#fff;box-shadow:0 2px 8px rgba(44,108,223,0.07);">
+      <div style="font-weight:800;font-size:1.3rem;color:#2d6cdf;">Mini Marketplace</div>
+      <div>
+        <a class="navbar-link" href="/">Home</a>
+        <a class="navbar-link" href="/products">Products</a>
+        <a class="navbar-link" href="/upload">Upload</a>
+        <% if (user) { %>
+          <span class="navbar-user">Hi, <%= user.name %></span>
+          <a class="navbar-link" href="/logout">Logout</a>
+        <% } else { %>
+          <a class="navbar-link" href="/login">Login</a>
+          <a class="navbar-link" href="/signup">Sign Up</a>
+        <% } %>
+      </div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>Discover Free Educational Digital Resources</h1>
+      <p>Find, share, and download high-quality templates, guides, and cheat sheets for students, educators, and creators. 100% free and open for all.</p>
+      <a href="/products" class="cta-btn">Browse Products</a>
+    </section>
+    <% if (topDownloads && topDownloads.length) { %>
+    <section style="max-width:700px;margin:2.5rem auto 0 auto;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(44,108,223,0.07);padding:2rem 2rem 1.5rem 2rem;">
+      <h2 style="color:#2d6cdf;font-size:1.5rem;font-weight:700;margin-bottom:1.2rem;">🔥 Top Downloads</h2>
+      <ul style="list-style:none;padding:0;margin:0;">
+        <% topDownloads.forEach(function(product) { %>
+          <li style="display:flex;align-items:center;justify-content:space-between;padding:0.7rem 0;border-bottom:1px solid #f0f4fa;">
+            <div>
+              <a href="/product/<%= product._id %>" style="color:#2d6cdf;font-weight:600;text-decoration:underline;font-size:1.08rem;">
+                <%= product.title %>
+              </a>
+              <span style="color:#888;font-size:0.98em;margin-left:0.7em;">(<%= product.downloadCount || 0 %> downloads)</span>
+            </div>
+            <a href="/download/<%= product._id %>" class="btn" style="padding:0.4rem 1.1rem;font-size:0.98rem;">Download</a>
+          </li>
+        <% }); %>
+      </ul>
+    </section>
+    <% } %>
+  </main>
+  <footer>
+    <div style="text-align:center;color:#888;padding:2rem 0 1rem 0;font-size:0.98rem;">
+      &copy; 2025 Mini Marketplace | Built with Node.js
+    </div>
+  </footer>
+</body>
+</html> 

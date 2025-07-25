@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Products - Mini Marketplace</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    @media (max-width: 600px) { .product-list { grid-template-columns: 1fr !important; } .container { padding: 1rem !important; } }
+    .category-badge {
+      display: inline-block;
+      background: #e3eafc;
+      color: #2d6cdf;
+      font-size: 0.92em;
+      border-radius: 5px;
+      padding: 0.2em 0.7em;
+      margin-bottom: 0.7em;
+      font-weight: 600;
+    }
+    .flash-message {
+      margin: 1.5rem auto 0.5rem auto;
+      max-width: 700px;
+      padding: 1rem 1.5rem;
+      border-radius: 7px;
+      font-size: 1.1rem;
+      background: #e3fcec;
+      color: #256029;
+      box-shadow: 0 2px 8px rgba(44,108,223,0.07);
+      text-align: center;
+    }
+    .flash-message.error {
+      background: #ffeaea;
+      color: #b71c1c;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav style="display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2rem;background:#fff;box-shadow:0 2px 8px rgba(44,108,223,0.07);">
+      <div style="font-weight:800;font-size:1.3rem;color:#2d6cdf;">Mini Marketplace</div>
+      <div>
+        <a href="/" style="margin:0 1rem;">Home</a>
+        <a href="/products" style="margin:0 1rem;">Products</a>
+        <a href="/upload" style="margin:0 1rem;">Upload</a>
+        <% if (user) { %>
+          <span style="margin:0 1rem;color:#2d6cdf;font-weight:600;">Hi, <%= user.name %></span>
+          <a href="/logout" style="margin:0 1rem;">Logout</a>
+        <% } else { %>
+          <a href="/login" style="margin:0 1rem;">Login</a>
+        <% } %>
+      </div>
+    </nav>
+  </header>
+  <div class="container">
+    <% if (success && success.length) { %>
+      <div class="flash-message"><%= success[0] %></div>
+    <% } %>
+    <% if (error && error.length) { %>
+      <div class="flash-message error"><%= error[0] %></div>
+    <% } %>
+    <h2>Your Products</h2>
+    <% if (products.length === 0) { %>
+      <p>You haven't uploaded any products yet.</p>
+    <% } else { %>
+      <div class="product-list">
+        <% products.forEach(function(product) { %>
+          <div class="product-card">
+            <span class="category-badge"><%= product.category %></span>
+            <h3><%= product.title %></h3>
+            <p><%= product.description %></p>
+            <p style="font-size:0.95em;color:#888;">Uploaded: <%= product.uploadDate.toLocaleDateString() %></p>
+            <a class="btn" href="<%= product.file %>" download>Download</a>
+          </div>
+        <% }); %>
+      </div>
+    <% } %>
+  </div>
+  <footer>
+    <div style="text-align:center;color:#888;padding:2rem 0 1rem 0;font-size:0.98rem;">
+      &copy; 2025 Mini Marketplace | Built with Node.js
+    </div>
+  </footer>
+</body>
+</html> 

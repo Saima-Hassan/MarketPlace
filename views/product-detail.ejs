@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= product.title %> - Mini Marketplace</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .detail-container { max-width: 600px; margin: 3rem auto; background: #fff; border-radius: 12px; box-shadow: 0 4px 24px rgba(44,108,223,0.07); padding: 2.5rem; }
+    .category-badge { background: #e3eafc; color: #2d6cdf; font-size: 0.92em; border-radius: 5px; padding: 0.2em 0.7em; margin-bottom: 0.7em; font-weight: 600; display: inline-block; }
+    .uploader { color: #888; font-size: 0.98em; margin-bottom: 0.5em; }
+    .downloads { color: #256029; font-size: 0.98em; margin-bottom: 0.5em; }
+    .btn { margin-top: 1.5rem; }
+    @media (max-width: 600px) { .detail-container { padding: 1rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <nav style="display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2rem;background:#fff;box-shadow:0 2px 8px rgba(44,108,223,0.07);">
+      <div style="font-weight:800;font-size:1.3rem;color:#2d6cdf;">Mini Marketplace</div>
+      <div>
+        <a href="/" style="margin:0 1rem;">Home</a>
+        <a href="/products" style="margin:0 1rem;">Products</a>
+        <a href="/upload" style="margin:0 1rem;">Upload</a>
+        <% if (user) { %>
+          <span style="margin:0 1rem;color:#2d6cdf;font-weight:600;">Hi, <%= user.name %></span>
+          <a href="/logout" style="margin:0 1rem;">Logout</a>
+        <% } else { %>
+          <a href="/login" style="margin:0 1rem;">Login</a>
+        <% } %>
+      </div>
+    </nav>
+  </header>
+  <div class="detail-container">
+    <span class="category-badge"><%= product.category %></span>
+    <h1 style="color:#2d6cdf;font-size:2rem;font-weight:800;margin-bottom:0.5rem;"><%= product.title %></h1>
+    <div class="uploader">By <%= product.uploadedBy ? product.uploadedBy.name : 'Unknown' %></div>
+    <div class="downloads"><%= product.downloadCount || 0 %> downloads</div>
+    <p style="font-size:1.1rem;margin:2rem 0;line-height:1.7;color:#444;"><%= product.description %></p>
+    <a class="btn" href="/download/<%= product._id %>">Download</a>
+  </div>
+  <footer>
+    <div style="text-align:center;color:#888;padding:2rem 0 1rem 0;font-size:0.98rem;">
+      &copy; 2025 Mini Marketplace | Built with Node.js
+    </div>
+  </footer>
+</body>
+</html> 

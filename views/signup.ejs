@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - Mini Marketplace</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Sign Up</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/login">Login</a>
+    </nav>
+  </header>
+  <div class="container">
+    <h2>Create Your Account</h2>
+    <% if (error) { %>
+      <div style="color: #b71c1c; background: #ffeaea; padding: 0.7rem 1rem; border-radius: 5px; margin-bottom: 1rem;">
+        <%= error %>
+      </div>
+    <% } %>
+    <form action="/signup" method="POST">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+      <button class="btn" type="submit">Sign Up</button>
+    </form>
+    <p>Already have an account? <a href="/login">Login here</a>.</p>
+  </div>
+  <footer>
+    &copy; <%= new Date().getFullYear() %> Mini Digital Product Marketplace.
+  </footer>
+</body>
+</html> 
